@@ -37,12 +37,48 @@ class LinkedList {
     this.tail = this.head;
   }
 
-  enqueueFront(){}
-  enqueueBack(){}
-  dequeueFront(){}
-  dequeueBack(){}
-  deleteNode(){}
-  searchNode(){}
+  enqueueFront(node :BaseNode) :void{
+    if(this.head == null){
+      this.head = node;
+      this.tail = this.head;
+    }else{
+      this.head.prev = node;
+      node.next = this.head;
+      this.head = node;
+
+    }
+  }
+  enqueueBack(node :BaseNode) :void{
+    if(this.tail == null){
+      this.head = node;
+      this.tail = this.head;
+    }else{
+      this.tail.next = node;
+      node.prev = this.tail;
+      this.tail = node;
+    }
+  }
+  dequeueFront() :void{
+    this.head = this.head.next;
+    
+  }
+  dequeueBack() :void{
+    this.tail = this.tail.prev;
+  }
+  deleteNode(key :string) :void{
+    let iterator = this.head;
+    while(iterator.data == key){
+        iterator = iterator.next;
+    }
+    
+    if(iterator == this.head)return this.dequeueFront();
+    else if(iterator == this.tail) return this.dequeueBack();
+    else{
+      iterator.prev.next = iterator.next;
+      iterator.next.prev = iterator.prev;
+    }
+  }
+  searchNode(key :string){}
   deepCopy(){}
 
 }
