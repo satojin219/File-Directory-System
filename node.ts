@@ -1,40 +1,54 @@
-interface BaseNode {
-  data?: string,
-  next?: BaseNode,
-  prev?: BaseNode,
+export interface BaseNode {
+  data: string | null,
+  next: BaseNode | null,
+  prev: BaseNode | null,
   name: string,
   type: string,
-  createdDate?: Date,
-  updatedDate?: Date,
-  parent?: BaseNode,
-  children?: BaseNode,
-  list?: LinkedList,
+  createdDate: Date,
+  updatedDate: Date,
+  parent: BaseNode | null,
+  childList: LinkedList,
   deepCopy(): BaseNode
 }
 
-class FileNode implements BaseNode {
-  public list?: LinkedList;
-  public createdDate?: Date;
-  public updatedDate?: Date;
+export class FileNode implements BaseNode {
+  data: string | null
+  next: BaseNode | null
+  prev: BaseNode | null
+  name: string
+  type: string
+  createdDate: Date
+  updatedDate: Date
+  parent: BaseNode | null
+  childList: LinkedList
 
-  constructor(public data: string, public name: string, public type: string, public parent: BaseNode) {
-    this.list = new LinkedList();
+  constructor(data: string | null,name: string,type: string,parent: BaseNode | null) {
+    this.data = data;
+    this.next = null;
+    this.prev = null;
+    this.name = name;
+    this.type = type;
+    this.parent = parent;
+    this.childList = new LinkedList();
     this.createdDate = new Date();
     this.updatedDate = this.createdDate;
   }
 
   deepCopy(): BaseNode {
     let copyNode = new FileNode(this.data, this.name, this.type, this.parent);
-    copyNode.list = this.list.deepCopy();
+    copyNode.childList = this.childList.deepCopy();
     return copyNode;
   }
 
 
 }
 
-class LinkedList {
-  constructor(public head?: BaseNode, public tail?: BaseNode) {
-    this.tail = this.head;
+export class LinkedList {
+  head: BaseNode | null
+  tail: BaseNode | null
+  constructor() {
+    this.head = null;
+    this.tail = null;
   }
 
   enqueueFront(node :BaseNode) :void{
@@ -59,29 +73,34 @@ class LinkedList {
     }
   }
   dequeueFront() :void{
+    if(this.head == null)return;
     this.head = this.head.next;
     
   }
   dequeueBack() :void{
+    if(this.tail == null)return;
     this.tail = this.tail.prev;
   }
   deleteNode(key :string) :void{
     let iterator = this.head;
-    while(iterator.data == key){
+    while(iterator != null){
+      if(iterator.data == key) break;
         iterator = iterator.next;
     }
     
-    if(iterator == this.head)return this.dequeueFront();
+    if(iterator == null)return
+    else if(iterator == this.head)return this.dequeueFront();
     else if(iterator == this.tail) return this.dequeueBack();
     else{
-      iterator.prev.next = iterator.next;
-      iterator.next.prev = iterator.prev;
+      if(iterator.prev != null) iterator.prev.next = iterator.next;
+     if(iterator.next != null)iterator.next.prev = iterator.prev;
+    
     }
   }
   searchNode(key :string) :BaseNode | null{
     let iterator = this.head;
     while(iterator != null){
-      if(iterator.data == key) return iterator;
+      if(iterator.name == key) return iterator;
         iterator = iterator.next;
     }
     return null;
