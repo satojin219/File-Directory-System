@@ -78,7 +78,22 @@ class LinkedList {
       iterator.next.prev = iterator.prev;
     }
   }
-  searchNode(key :string){}
-  deepCopy(){}
+  searchNode(key :string) :BaseNode | null{
+    let iterator = this.head;
+    while(iterator != null){
+      if(iterator.data == key) return iterator;
+        iterator = iterator.next;
+    }
+    return null;
+  } 
+  deepCopy() :LinkedList{
+    let copyList = new LinkedList();
+    let iterator = this.head;
+    while(iterator != null){
+      copyList.enqueueBack(iterator);
+      iterator = iterator.next;
+    }
+    return copyList;
+  }
 
 }
