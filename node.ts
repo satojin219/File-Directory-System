@@ -1,12 +1,12 @@
 interface BaseNode {
-  data: string,
+  data?: string,
   next?: BaseNode,
   prev?: BaseNode,
   name: string,
   type: string,
   createdDate?: Date,
   updatedDate?: Date,
-  parent: BaseNode,
+  parent?: BaseNode,
   children?: BaseNode,
   list?: LinkedList,
   deepCopy(): BaseNode
