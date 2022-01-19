@@ -10,7 +10,8 @@ export class FileSystem{
     this.currentDir = this.root;
   }
   touch(fileName :string) :string{
-    if(this.currentDir.childList.searchNode(fileName) != null){
+    let serchKeyNode = this.currentDir.childList.searchNode(fileName);
+    if(serchKeyNode != null && serchKeyNode.type == "file"){
       this.currentDir.updatedDate = new Date();
       return `1 new file's updated: ${fileName}`
       
@@ -20,7 +21,18 @@ export class FileSystem{
       return `1 new file added: ${fileName}`
     }
   }
-  mkdir(dirName :string){}
+  mkdir(dirName :string){
+    let serchKeyNode = this.currentDir.childList.searchNode(dirName);
+    if(serchKeyNode != null && serchKeyNode.type == "dir"){
+      return `ERROR! file or directory already exists: ${dirName}`;
+      
+    }else{
+      let newDirectory  = new FileNode(null,dirName,"dir",null);
+      this.currentDir.childList.enqueueBack(newDirectory);
+      return `1 new directory added: ${dirName}`;
+    }
+  }
+  
   ls(optionOrFileOrDirName? :string){}
   cd(optionOrdirName :string){}
   pwd(){}

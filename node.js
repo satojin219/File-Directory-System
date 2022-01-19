@@ -92,4 +92,3 @@ export class LinkedList {
         return copyList;
     }
 }
-//# sourceMappingURL=node.js.map
