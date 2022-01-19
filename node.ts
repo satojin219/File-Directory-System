@@ -9,6 +9,7 @@ export interface BaseNode {
   parent: BaseNode | null,
   childList: LinkedList,
   deepCopy(): BaseNode
+
 }
 
 export class FileNode implements BaseNode {
@@ -113,6 +114,18 @@ export class LinkedList {
       iterator = iterator.next;
     }
     return copyList;
+  }
+  // lsコマンド用、リスト一覧を文字列で並べて返す
+  toListString() :string{
+    let res :string = "";
+    let iterator = this.head;
+    while(iterator != null){
+      if(iterator.type == "dir"){
+        res +=iterator.createdDate + iterator.name + " ";
+      }
+      iterator = iterator.next;
+    }
+    return res;
   }
 
 }

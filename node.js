@@ -91,4 +91,16 @@ export class LinkedList {
         }
         return copyList;
     }
+    // lsコマンド用、リスト一覧を文字列で並べて返す
+    toListString() {
+        let res = "";
+        let iterator = this.head;
+        while (iterator != null) {
+            if (iterator.type == "dir") {
+                res += iterator.createdDate + iterator.name + " ";
+            }
+            iterator = iterator.next;
+        }
+        return res;
+    }
 }

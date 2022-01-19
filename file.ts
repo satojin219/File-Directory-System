@@ -33,7 +33,9 @@ export class FileSystem{
     }
   }
   
-  ls(optionOrFileOrDirName? :string){}
+  ls(optionOrFileOrDirName? :string){
+    return this.currentDir.childList.toListString();
+  }
   cd(optionOrdirName :string){}
   pwd(){}
   print(fileName :string){}

@@ -23,12 +23,13 @@ export class FileSystem {
         }
         else {
             let newDirectory = new FileNode(null, dirName, "dir", null);
-            this.currentDir.next = newDirectory;
             this.currentDir.childList.enqueueBack(newDirectory);
             return `1 new directory added: ${dirName}`;
         }
     }
-    ls(optionOrFileOrDirName) { }
+    ls(optionOrFileOrDirName) {
+        return this.currentDir.childList.toListString();
+    }
     cd(optionOrdirName) { }
     pwd() { }
     print(fileName) { }

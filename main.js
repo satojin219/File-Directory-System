@@ -5,4 +5,4 @@ console.log(fileSystem.touch("index.html"));
 console.log(fileSystem.mkdir("src"));
 console.log(fileSystem.mkdir("src"));
 console.log(fileSystem.mkdir("components"));
-console.log(fileSystem);
+console.log(fileSystem.ls());
